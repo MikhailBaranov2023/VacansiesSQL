@@ -5,6 +5,9 @@ from src.config import hh_api_config
 
 
 class HH_API_Handler(AbstractAPIEngine):
+    """
+    Класс для получения информации о вакансиях и работодателях. Возвращает список словарей.
+    """
     def __init__(self, page: int = 0) -> None:
         self.url = "https://api.hh.ru/vacancies"
         self.params = {
@@ -16,16 +19,24 @@ class HH_API_Handler(AbstractAPIEngine):
         }
 
     def get_vacancies_data(self) -> list[dict]:
+        """
+        Функция возвращает информацию о вакансиях.
+        :return:
+        """
         response = httpx.get(self.url, params=self.params)
         return response.json()['items']
 
     def get_employer_data(self) -> list[dict]:
-        e_list = []
+        """
+        Функция возвращает информацию о работодателях.
+        :return:
+        """
+        employers = []
         for uid in self.params.get('employer_id'):
             if uid is not None:
-                e_list.append({
+                employers.append({
                     'id': uid,
                     'name': httpx.get(f'https://api.hh.ru/employers/{uid}').json().get('name'),
                     'url': httpx.get(f'https://api.hh.ru/employers/{uid}').json().get('alternate_url')
                 })
-        return e_list
+        return employers

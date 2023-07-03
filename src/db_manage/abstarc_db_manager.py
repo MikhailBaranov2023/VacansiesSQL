@@ -2,6 +2,9 @@ from abc import ABC, abstractmethod
 
 
 class AbstractDBManager(ABC):
+    """
+    Абстрактный класс с функциями для обработки sql запросов.
+    """
     @abstractmethod
     def get_companies_and_vacancies_count(self):
         pass

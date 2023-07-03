@@ -1,13 +1,17 @@
 import os
-from src.db_manage.db_manager import PostgressDBManager
+from src.db_manage.db_manager import PostgresDBManager
 from src.api_engine.hh_api_engine_class import HH_API_Handler
 from src.utils import insert_employer_data_to_db, insert_vacancy_data_to_db
+from dotenv import load_dotenv
 
 if __name__ == '__main__':
-    db = PostgressDBManager(
+
+    load_dotenv()
+
+    db = PostgresDBManager(
         dbname='coursework',
         user='postgres',
-        password='problema99',
+        password=os.environ.get('DB_PASSWORD'),
         host="localhost",
         port="5432"
     )

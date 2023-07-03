@@ -2,6 +2,9 @@ from abc import ABC, abstractmethod
 
 
 class AbstractAPIEngine(ABC):
+    """
+    Реализован абстрактрый класс для получения данных через API
+    """
     @abstractmethod
     def get_vacancies_data(self):
         pass
